@@ -6,6 +6,8 @@ D=M
 0;JEQ
 @R4
 M=0
+@R4
+D=M
 @Begin
 0;JMP
 (Not)
