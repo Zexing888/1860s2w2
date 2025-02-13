@@ -1,59 +1,59 @@
 @R2
-M=0              // 初始化商（R2 = 0）
+M=0           
 
 @R3
-M=0              // 初始化余数（R3 = 0）
+M=0            
 
 @R4
-M=0              // 初始化标志位为 0（表示除法有效）
+M=0            
 
-@R1              // 加载除数 y 到 D 寄存器
+@R1           
 D=M
 @Not
-D;JEQ           // 如果除数为 0，则跳转到 Not 标签
+D;JEQ         
 
 @R4
-M=0             // 除法有效，设置标志位 R4 为 0
-@Begin          // 跳转到除法开始部分
+M=0         
+@Begin       
 0;JMP
 
 (Not)
 @R4
-M=1             // 除法无效，设置标志位 R4 为 1
+M=1         
 @END
 0;JMP
 
 (Begin)
-@R0              // 加载被除数 x 到 D 寄存器
+@R0          
 D=M
-@R1              // 加载除数 y
-D=D-M            // 计算 x - y
+@R1        
+D=D-M        
 @Negative
-D;JLT            // 如果 D < 0，跳转到 Negative 标签
+D;JLT         
 
-(LOOP)
-@R2              // 增加商
+(LOOP）
+@R2         
 M=M+1
-@R0              // 从 x 中减去 y
+@R0        
 D=M
 @R1
 D=D-M
 @R0
-M=D              // 更新 x（x = x - y）
-@R0              // 如果 x >= y，继续循环
+M=D           
+@R0     
 D=M
 @R1
 D=D-M
 @LOOP
-D;JGE            // 如果 x >= y，继续循环
+D;JGE      
 
-@R3              // 将剩余值存入余数
+@R3       
 M=D
 @END
 0;JMP
 
 (Negative)
 @R0
-D=M              // 处理负数的符号
+D=M           
 @R3
-M=D              // 保存负数的符号
+M=D              
