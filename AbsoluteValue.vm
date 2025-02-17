@@ -1,0 +1,22 @@
+push argument 0
+push constant 0
+lt
+if-goto Negative
+push argument 0 
+pop argument 1
+push constant 1
+pop argument 2
+push constanr 0
+pop argument 3
+goto END
+
+label Negative
+push argument 0
+neg 
+pop argument 1
+push constant 1
+pop argument 2
+push constant 0
+pop argument 3
+label END
+return
