@@ -1,0 +1,10 @@
+push argument 0
+push argument 1
+eq
+if-goto Equal
+push 1
+goto END
+label Equal
+push 0
+label END
+return
