@@ -1,12 +1,8 @@
 push argument 0
 push argument 1
-eq
-if-goto Equal
-push 1
-pop argument 2
-goto END
-label Equal
-push 0
-pop argument 2
-label END
-return
+or
+push argument 0
+push argument 1
+and 
+not
+and 
