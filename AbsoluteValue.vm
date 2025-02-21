@@ -1,6 +1,6 @@
 push argument 0
 push constant 0
-ls
+lt
 if-goto Negative
 push argument 0
 pop argument 1
