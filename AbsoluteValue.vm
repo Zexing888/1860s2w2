@@ -6,9 +6,11 @@ push argument 0
 pop argument 1
 push constant 0
 pop argument 2
+push argument 0
 push constant 32768
-pop argument 0
-lt
+add
+push constant 0
+eq
 if-goto Not
 push constant 0
 pop argument 3
@@ -20,13 +22,15 @@ neg
 pop argument 1
 push constant 1
 pop argument 2
+push argument 0
 push constant 32768
-pop argument 1
-lt
+add
+push constant 0
+eq
 if-goto Not
 push constant 0
 pop argument 3
-goto END
+go to END
 
 label Not
 push constant 1
