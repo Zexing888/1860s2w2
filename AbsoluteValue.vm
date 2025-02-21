@@ -1,43 +1,44 @@
+// Check if R0 is negative
+push argument 0       // Load R0 into the stack
+push constant 0       // Push 0 onto the stack
+lt                    // Check if R0 < 0
+if-goto Negative      // Jump to Negative if R0 is negative
 
-push constant 0
-pop argument 2
+// R0 is non-negative
+push argument 0       // Load R0 into the stack
+pop local 1           // Store it in local 1 (R1)
+push constant 0       // Push 0 onto the stack
+pop argument 2        // Set argument[2] to 0
+push constant 0       // Push 0 onto the stack
+pop argument 3        // Set argument[3] to 0
+goto END              // Jump to END
+
+label Negative
+// R0 is negative
+push argument 0       // Load R0 into the stack
+neg                   // Negate R0
+pop local 1           // Store the negated value in local 1 (R1)
+push constant 1       // Push 1 onto the stack
+pop argument 2        // Set argument[2] to 1
+
+// Check if absolute value of R0 is computable (check for overflow)
+push local 1          // Load R1 (the negated value of R0)
+push constant 32768   // Push 32768 onto the stack
+add                   // Add the two values (R1 + 32768)
+push constant 0       // Push 0 onto the stack
+eq                    // Check if the result equals 0
+if-goto Cannot        // If the result equals 0, jump to Cannot
+
+// No overflow, so set argument[3] to 0
 push constant 0
 pop argument 3
+goto END              // Jump to END
 
-push argument 0
-push constant 0
-lt
-if-goto IF_NEGATIVE
-goto IF_NONNEGATIVE
-
-label IF_NEGATIVE
-push constant 1
-pop argument 2
-
-push argument 0
-neg
-push argument 0
-add
-push constant 0
-eq
-if-goto CANT_COMPUTE
-
-push argument 0
-neg
-pop argument 1
-goto END
-
-label CANT_COMPUTE
-push constant 1
-pop argument 3
-push argument 0
-pop argument 1
-goto END
-
-label IF_NONNEGATIVE
-push argument 0
-pop argument 1
-goto END
+label Cannot
+// R0 absolute value cannot be computed
+push constant 1       // Push 1 onto the stack
+pop argument 3        // Set argument[3] to 1
 
 label END
+// End of the program
 return
