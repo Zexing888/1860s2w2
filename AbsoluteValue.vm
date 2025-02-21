@@ -30,7 +30,7 @@ eq
 if-goto Not
 push constant 0
 pop argument 3
-go to END
+goto END
 
 label Not
 push constant 1
