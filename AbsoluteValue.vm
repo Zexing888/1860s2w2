@@ -1,38 +1,32 @@
 push argument 0
-push constant 0
+push argument 0
+
+push constant 0      // 判断 x 是否<0
 lt
-if-goto Negative
-push argument 0
-pop argument 1
-push constant 0
+
+if-goto NEG     // 如果 x<0，跳转到 NEG 标签
+
+push argument 0      
+pop argument 1       // 如果 x >= 0，直接将 x 存储到 argument[1]
+
+push constant 0      //设置x非负
 pop argument 2
-push argument 0
-push constant 32768
-add
-push constant 0
-eq
-if-goto Not
-push constant 0
+
+push constant 0      //计算绝对值
 pop argument 3
+
 goto END
 
-label Negative
-push argument 0
+label NEG       // NEG 标签：处理 x < 0 的情况
+
+push argument 0       // 计算 -x（绝对值）
 neg
 pop argument 1
-push constant 1
-pop argument 2
-push argument 0
-push constant 32768
-add
-push constant 0
-eq
-if-goto Not
-push constant 0
-pop argument 3
-goto END
 
-label Not
-push constant 1
+push constant 1       // 设置 argument[2] 为 1（x 为负）
+pop argument 2
+
+push constant 0       //// 设置 argument[3] 为 0（可以计算绝对值）
 pop argument 3
+
 label END

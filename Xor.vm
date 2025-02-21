@@ -1,67 +1,15 @@
-push argument 0  
-pop temp 0       
+push argument 0
+push argument 1
 
-push temp 0     
-push constant 0  
-lt               
-if-goto NEGATIVE 
+and
 
-push constant 0  
-pop local 0     
-push constant 0  
-pop local 1      
+not
 
-label LOOP       
-push local 1     
-push temp 0     
-eq               
-if-goto END      
+push argument 0
+push argument 1
 
-push local 0     
-push temp 0     
-add             
-pop local 0      
+or
 
-push local 1     
-push constant 1 
-add             
-pop local 1     
+and
 
-goto LOOP     
-
-label NEGATIVE 
-push temp 0     
-neg             
-pop temp 0       
-
-push constant 0  
-pop local 0      
-push constant 0  
-pop local 1     
-
-label NEG_LOOP   
-push local 1     
-push temp 0      
-eq              
-if-goto NEG_END  
-
-push local 0     
-push temp 0      
-add           
-pop local 0      
-
-push local 1    
-push constant 1  
-add              
-pop local 1      
-
-goto NEG_LOOP    
-
-label END       
-push local 0      
-goto FINISH     
-
-label NEG_END   
-push local 0      
-
-label FINISH    
+pop argument 2
