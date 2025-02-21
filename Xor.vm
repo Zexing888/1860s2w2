@@ -1,8 +1,74 @@
 push argument 0
 push argument 1
-or
-push argument 0
-push argument 1
-and 
-not
-and 
+push constant 0
+pop local 0
+push constant 0
+pop local 1
+
+label LOOP
+    push local 1
+    push constant 16
+    ge
+    if-goto END_LOOP
+
+    push argument 0
+    push local 1
+    call GetBit 2
+
+    push argument 1
+    push local 1
+    call GetBit 2
+
+    call XOR_BITS 2
+
+    push local 0
+    push local 1
+    call SetBit 2
+
+    push local 1
+    push constant 1
+    add
+    pop local 1
+
+    goto LOOP
+
+label END_LOOP
+push local 0
+pop argument 2
+return
+
+label GetBit
+    pop local 1
+    pop local 0
+    push local 0
+    push local 1
+    shiftRight
+    push constant 1
+    and
+    return
+
+label XOR_BITS
+    pop local 1
+    pop local 0
+    xor
+    return
+
+label SetBit
+    pop local 2
+    pop local 1
+    pop local 0
+    push constant 1
+    push local 1
+    shiftLeft
+    push local 2
+    push constant 1
+    eq
+    if-goto SET_BIT
+    push local 0
+    return
+
+label SET_BIT
+    push local 0
+    push constant 1
+    or
+    return
