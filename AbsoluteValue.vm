@@ -6,6 +6,10 @@ push argument 0
 pop argument 1
 push constant 0
 pop argument 2
+push constant 32768
+pop argument 0
+lt
+if-goto Not
 push constant 0
 pop argument 3
 goto END
@@ -16,6 +20,14 @@ neg
 pop argument 1
 push constant 1
 pop argument 2
+push constant 32768
+pop argument 1
+lt
+if-goto Not
+push constant 0
+pop argument 3
+
+label Not
 push constant 1
 pop argument 3
 label END
