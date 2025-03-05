@@ -1,0 +1,143 @@
+function Sys.xor 0
+push argument 0 
+push argument 1 
+push argument 0 
+push argument 1 
+not             
+and             
+pop temp 0
+push argument 0 
+not             
+push argument 1 
+and             
+pop temp 1
+push temp 0
+push temp 1
+or              
+return
+
+function Sys.shiftLeft 4
+push argument 0
+push argument 1
+pop temp 0
+pop temp 1
+
+label Loop 
+push temp 0
+push constant 0
+eq
+if-goto END  
+push temp 1
+push temp 1
+add 
+pop temp 1
+push temp 0
+push constant 1
+sub
+pop temp 0
+goto Loop 
+label END 
+push temp 1
+return
+
+function Sys.computeParity 4
+push constant 0
+pop temp 0
+push constant 15
+pop temp 1
+
+label loopStart
+push temp 1
+push constant 0
+eq
+if-goto loopEnd
+
+push argument 0
+push constant 1
+and
+push constant 0
+eq
+not
+if-goto bitIsOne
+
+goto skipToggle
+
+label bitIsOne
+push temp 0
+push constant 1
+call Sys.xor 2
+pop temp 0
+
+label skipToggle
+push argument 0
+push constant 1
+gt
+if-goto shiftRight
+push argument 0
+push constant 1
+sub
+pop argument 0
+goto continueLoop
+
+label shiftRight
+push argument 0
+push argument 0
+add
+push constant 1
+sub
+pop argument 0
+
+label continueLoop
+push temp 1
+push constant 1
+sub
+pop temp 1
+goto loopStart
+
+label loopEnd
+push temp 0
+return
+
+function Sys.encode 4
+push argument 0
+pop temp 0
+push argument 0
+call Sys.computeParity 1
+pop temp 1
+push temp 0
+push constant 32767
+and
+pop temp 2
+push temp 1
+if-goto setBit
+goto pushResult
+
+label setBit
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+push temp 2
+call Sys.shiftLeft 16
+or
+pop temp 2
+
+label pushResult
+push temp 2
+return
+
+function Sys.init 0
+    call Sys.encode 1
+
+label WHILE
+    goto WHILE
